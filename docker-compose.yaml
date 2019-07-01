@@ -3,8 +3,6 @@ services:
   cqpweb:
    image: rahonabe/cqpweb
    env_file: ./secrets.env
-   links:
-        - sql
    domainname: ${DOMAINNAME}
    hostname: ${FIRSTNAME}-CQPweb
    build: 
@@ -12,11 +10,11 @@ services:
    ports:
        - 80:80
    volumes:
-       - ./${FIRSTNAME}-container/corpora:/var/corpora
-       - ./${FIRSTNAME}-container/webapp:/var/www/html
-       - ./${FIRSTNAME}-container/registry:/usr/local/share/cwb/registry
-   volumes_from:
-       - sql
+       - ./${FIRSTNAME}-container/cwb/corpora:/var/corpora
+       - ./${FIRSTNAME}-container/cwb/registry:/usr/local/share/cwb/registry
+       - ./${FIRSTNAME}-container/cqpweb/upload:/var/cqpweb/upload
+       - ./${FIRSTNAME}-container/cqpweb/data:/var/www/html
+       - ./${FIRSTNAME}-container/cqpweb/tmp:/var/cqpweb/tmp
   sql:
     image: mariadb
     env_file: ./secrets.env
@@ -24,3 +22,5 @@ services:
     hostname: ${FIRSTNAME}-sql
     volumes:
       - ./${FIRSTNAME}-container/lib/mysql:/var/lib/mysql
+    volumes_from:
+        - cqpweb

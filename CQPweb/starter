@@ -9,6 +9,68 @@ set -e
 
 #/var/www/html, where CQPweb sits
 chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html
+#/var/upload, where CQPweb upload file
+chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/cqpweb/upload
+chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/cqpweb/tmp
+
+#Install CQPweb
+if [ ! -d "/var/www/html/CQPweb" ]; then
+cp -rvp /usr/local/src/CQPweb /var/www/html
+#Initial setup with environment variables
+cat <<EOF >/var/www/html/CQPweb/lib/config.inc.php
+<?php
+
+
+/* ----------------------------------- *
+ * adminstrators' usernames, separated *
+ * by | with no stray whitespace.      *
+ * ----------------------------------- */
+
+\$superuser_username = '${CQPWEB_ADMIN}';
+
+
+/* -------------------------- *
+ * database connection config *
+ * -------------------------- */
+
+\$mysql_webuser = 'root';
+\$mysql_webpass = '${MYSQL_ROOT_PASSWORD}';
+\$mysql_schema  = '${MYSQL_DATABASE}';
+\$mysql_server  = 'sql';
+
+
+
+/* ---------------------- *
+ * server directory paths *
+ * ---------------------- */
+
+\$cqpweb_tempdir   = '/var/cqpweb/tmp';
+\$cqpweb_uploaddir = '/var/cqpweb/upload';
+\$cwb_datadir      = '/var/corpora';
+\$cwb_registry     = '/usr/local/share/cwb/registry';
+
+\$mysql_has_file_access = TRUE;
+
+?>
+	
+
+EOF
+
+#wait until sql container is ready
+while ! mysql --protocol TCP -u"root" -p"$MYSQL_ROOT_PASSWORD" -h sql -e "show databases;" > /dev/null 2>&1; do
+    sleep 1s
+    echo -n "."
+  done
+
+#Run autosetup
+#cd /var/www/html/CQPweb/bin; php -ef autosetup.php
+
+echo "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to finish the autosetup"
+
+fi
+#Update CQPweb
+svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/trunk /var/www/html/CQPweb
+
 
 # Apache gets grumpy about PID files pre-existing
 rm -f ${APACHE_PID_FILE}
