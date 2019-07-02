@@ -11,21 +11,21 @@ From CQPweb's site:
 - separate containers for MariaDB (sql) and CQPweb (cqpweb) sub-systems
 - automatic building of CWB tools (latest version)
 - (quasi)automatic installation of CQPweb GUI (latest version)
-- basic installation of R
+- basic installation of R (based on R Docker image)
 - MariaDB's latest version (straight from the original Docker image)
 - persistent volumes
 
 ## Installation
 1. Edit .env and secrets.env to fit your needs (see below for details).
-2. docker-compose build
-3. docker-compose up
-4. When the system pops up "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to finish the autosetup", run docker-compose exec cqpweb bash to enter CQPweb container terminal
+2. `docker-compose build`
+3. `docker-compose up`
+4. When the system pops up "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to finish the autosetup", run `docker-compose exec cqpweb bash` to enter CQPweb container terminal
 5. Run autosetup.php from its directory
 6. Visit http://youraddress/CQPweb
 7. Drop your VRT files to ./${FIRSTNAME}-container/cqpweb/upload
 8. Happy corpus linguistics!
 
-Next time(s) you will just have to run docker-compose up -d 
+Next time(s) you will just have to run `docker-compose up -d`
 
 ## Configuration
 Before starting, you have to modify two files: .env and secrets.env
@@ -46,7 +46,7 @@ In order to mantain corpora data and registry, CQPweb files and SQL database thr
 | ./${FIRSTNAME}-container/cqpweb/data | cqpweb:/var/www/html/CQPweb | CQPweb data files |
 | ./${FIRSTNAME}-container/cqpweb/upload | cqpweb:/var/cqpweb/upload | CQPweb upload directory |
 | ./${FIRSTNAME}-container/cqpweb/tmp | cqpweb:/var/cqpweb/tmp| CQPweb temporary directory |
-| ./${FIRSTNAME}-container/lib/mysql | sql:/var/lib/mysql| MariaDB data |
+| ./${FIRSTNAME}-container/sql/data | sql:/var/lib/mysql| MariaDB data |
 
 
 
