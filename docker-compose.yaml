@@ -21,6 +21,6 @@ services:
     domainname: ${DOMAINNAME}
     hostname: ${FIRSTNAME}-sql
     volumes:
-      - ./${FIRSTNAME}-container/lib/mysql:/var/lib/mysql
+      - ./${FIRSTNAME}-container/sql/data:/var/lib/mysql
     volumes_from:
         - cqpweb

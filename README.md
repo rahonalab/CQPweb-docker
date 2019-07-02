@@ -8,7 +8,7 @@ From CQPweb's site:
 >CQPweb is especially suitable for students, non-linguists, and others for whom a Unix-like command-line is a terrifying prospect.
 
 ## Features
-- separate containers for SQL and CQPweb sub-systems
+- separate containers for MariaDB (sql) and CQPweb (cqpweb) sub-systems
 - automatic building of CWB tools (latest version)
 - (quasi)automatic installation of CQPweb GUI (latest version)
 - basic installation of R
@@ -27,16 +27,26 @@ From CQPweb's site:
 
 Next time(s) you will just have to run docker-compose up -d 
 
+## Configuration
+Before starting, you have to modify two files: .env and secrets.env
+
+### .env
+This file is read by docker-compose: you just need to set up your domain (${DOMAINNAME}) and host name (${FIRSTNAME}). The latter is particurarly important, since persistent volumes on the host filesystem are created using this name (see persistent volumes).
+
+### secrets.env
+This file is read by containers. You can safely ignore the Apache environment variables; just modify MySQL variables and LOCALTIME.
+
 ## Persistent volumes
-In order to mantain corpora data and registry, CQPweb files and SQL database through further code upgrades, the following persistent volume are provided:
+In order to mantain corpora data and registry, CQPweb files and SQL database through further code upgrades, the following persistent volumes are provided:
 
 | Host | Container:directory | Description & Usage |
 | ------ | ----- | ------------------- |
-| ./${FIRSTNAME}-container/cwb/corpora | CQPweb:/var/corpora | corpora data |
-| ./${FIRSTNAME}-container/cwb/registry | CQPweb:/usr/local/share/cwb/registry | corpora registry files |
-| ./${FIRSTNAME}-container/cqpweb/data | CQPweb:/var/www/html/CQPweb | CQPweb data files |
-| ./${FIRSTNAME}-container/cqpweb/upload | CQPweb:/var/cqpweb/upload | CQPweb upload directory |
-| ./${FIRSTNAME}-container/cqpweb/tmp | CQPweb:/var/cqpweb/tmp| CQPweb temporary directory |
+| ./${FIRSTNAME}-container/cwb/corpora | cqpweb:/var/corpora | corpora data |
+| ./${FIRSTNAME}-container/cwb/registry | cqpweb:/usr/local/share/cwb/registry | corpora registry files |
+| ./${FIRSTNAME}-container/cqpweb/data | cqpweb:/var/www/html/CQPweb | CQPweb data files |
+| ./${FIRSTNAME}-container/cqpweb/upload | cqpweb:/var/cqpweb/upload | CQPweb upload directory |
+| ./${FIRSTNAME}-container/cqpweb/tmp | cqpweb:/var/cqpweb/tmp| CQPweb temporary directory |
+| ./${FIRSTNAME}-container/lib/mysql | sql:/var/lib/mysql| MariaDB data |
 
 
 
