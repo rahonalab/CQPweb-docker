@@ -69,7 +69,7 @@ echo "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to 
 
 fi
 #Update CQPweb
-svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/trunk /var/www/html/CQPweb
+svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest /var/www/html/CQPweb
 
 
 # Apache gets grumpy about PID files pre-existing

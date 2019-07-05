@@ -67,7 +67,7 @@ RUN apt-get update \
 
 #Install CQPweb
 WORKDIR /usr/local/src
-RUN svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/trunk/ CQPweb
+RUN svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest CQPweb
 
 # Tiny helper to start apache2 in foreground
 COPY starter /usr/local/bin/
