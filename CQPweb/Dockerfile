@@ -11,7 +11,7 @@
 ##############################################################################
 ###
 FROM r-base:latest
-LABEL maintainer="Luigi <luigi@rahona.be"
+LABEL maintainer="Luigi <luigi@rahona.be>"
 ENV LANG C.UTF-8
 ARG CWB_REVISION=HEAD
 
@@ -31,13 +31,14 @@ ADD http://svn.code.sf.net/p/cwb/code/cwb/trunk cwb.revision
 RUN svn co -r ${CWB_REVISION} http://svn.code.sf.net/p/cwb/code/cwb/trunk/ cwb
 RUN grep -E '^VERSION = ' cwb/definitions.mk | cut -c11- > cwb.version
 
+
 ###
 #Compile cwb
 # Installation steps from
 # http://svn.code.sf.net/p/cwb/code/cwb/trunk/install-scripts/cwb-install-ubuntu
 RUN apt-get update \
     && apt-get install \
-        autoconf bison flex gcc make pkg-config libc6-dev libncurses5 libncurses5-dev libpcre3-dev libglib2.0-0 libglib2.0-dev libreadline-dev
+        autoconf bison flex gcc make pkg-config libc6-dev libncurses5 libncurses5-dev libpcre3-dev libglib2.0-0 libglib2.0-dev libreadline-dev perl perl-modules libhtml-parser-perl
 
 WORKDIR /usr/local/src/cwb
 ENV PLATFORM=linux-64
@@ -64,6 +65,16 @@ RUN apt-get update \
 	php-gd \
 	less \
 	mysql-client
+
+#Cwb perl
+WORKDIR /usr/local/src
+RUN svn co http://svn.code.sf.net/p/cwb/code/perl/trunk/CWB CWB-perl
+
+WORKDIR /usr/local/src/CWB-perl
+RUN perl Makefile.PL \
+    && make \
+    && make test \
+    && make install
 
 #Install CQPweb
 WORKDIR /usr/local/src
