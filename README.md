@@ -16,7 +16,7 @@ From CQPweb's site:
 - persistent volumes
 
 ## Installation
-1. Edit .env and secrets.env to fit your needs (see below for details).
+1. Edit .env.edit and secrets.env.edit to fit your needs (see below for details). Rename the former to .env and the latter to secrets.env
 2. `docker-compose build`
 3. `docker-compose up`
 4. When the system pops up "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to finish the autosetup", run `docker-compose exec cqpweb bash` to enter CQPweb container terminal
@@ -31,7 +31,7 @@ Next time(s) you will just have to run `docker-compose up -d`
 Before starting, you have to modify two files: .env and secrets.env
 
 ### .env
-This file is read by docker-compose: you just need to set up your domain (${DOMAINNAME}) and host name (${FIRSTNAME}). The latter is particurarly important, since persistent volumes on the host filesystem are created using this name (see persistent volumes).
+This file is read by docker-compose: you first need to set up your domain (${DOMAINNAME}) and host name (${FIRSTNAME}). The latter is particurarly important, since persistent volumes on the host filesystem are created using this name (see persistent volumes). The ${CORPORA} variable defaults to `/var/corpora`, while the ${REGISTRY} variable to `/usr/local/share/cwb/registry`. Please make sure that these directories exist!
 
 ### secrets.env
 This file is read by containers. You can safely ignore the Apache environment variables; just modify MySQL variables and LOCALTIME.
@@ -41,8 +41,8 @@ In order to mantain corpora data and registry, CQPweb files and SQL database thr
 
 | Host | Container:directory | Description & Usage |
 | ------ | ----- | ------------------- |
-| ./${FIRSTNAME}-container/cwb/corpora | cqpweb:/var/corpora | corpora data |
-| ./${FIRSTNAME}-container/cwb/registry | cqpweb:/usr/local/share/cwb/registry | corpora registry files |
+| ${CORPORA} | cqpweb:/var/corpora | corpora data |
+| ${REGISTRY} | cqpweb:/usr/local/share/cwb/registry | corpora registry files |
 | ./${FIRSTNAME}-container/cqpweb/data | cqpweb:/var/www/html/CQPweb | CQPweb data files |
 | ./${FIRSTNAME}-container/cqpweb/upload | cqpweb:/var/cqpweb/upload | CQPweb upload directory |
 | ./${FIRSTNAME}-container/cqpweb/tmp | cqpweb:/var/cqpweb/tmp| CQPweb temporary directory |

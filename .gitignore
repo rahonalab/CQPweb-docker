@@ -3,3 +3,5 @@
 .DS_Store
 *-container*
 *.swn
+.env
+secrets.env
