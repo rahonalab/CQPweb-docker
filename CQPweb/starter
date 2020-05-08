@@ -71,6 +71,8 @@ fi
 #Update CQPweb
 svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest /var/www/html/CQPweb
 
+#Reset permissions
+chown -R ${APACHE_RUN_USER}:${APACHE_RUN_GROUP} /var/www/html
 
 # Apache gets grumpy about PID files pre-existing
 rm -f ${APACHE_PID_FILE}

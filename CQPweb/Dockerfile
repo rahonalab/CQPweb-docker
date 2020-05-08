@@ -59,7 +59,7 @@ RUN apt-get update \
         apache2 \
         libapache2-mod-php \
         php-xml \
-	php-mysqli \
+	php-mysql \
 	php-mbstring \
 	php-json \
 	php-gd \
@@ -82,6 +82,5 @@ RUN svn co http://svn.code.sf.net/p/cwb/code/gui/cqpweb/branches/3.2-latest CQPw
 
 # Tiny helper to start apache2 in foreground
 COPY starter /usr/local/bin/
-
 
 CMD ["starter"]
