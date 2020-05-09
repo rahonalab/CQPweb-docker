@@ -20,8 +20,8 @@ From CQPweb's site:
 2. `docker-compose build`
 3. `docker-compose up`
 4. When the system pops up "Ok, now you should run /var/www/html/CQPweb/bin/autosetup.php in order to finish the autosetup", run `docker-compose exec cqpweb bash` to enter CQPweb container terminal
-5. Run autosetup.php from its directory
-6. Visit http://youraddress/CQPweb
+5. `cd /var/www/html/CQPweb/bin/` and  run autosetup.php
+6. Visit http://youraddress:8080/CQPweb
 7. Drop your VRT files to ./${FIRSTNAME}-container/cqpweb/upload
 8. Happy corpus linguistics!
 
@@ -35,6 +35,9 @@ This file is read by docker-compose: you first need to set up your domain (${DOM
 
 ### secrets.env
 This file is read by containers. You can safely ignore the Apache environment variables; just modify MySQL variables and LOCALTIME.
+
+### docker-compose.yaml
+This is the main docker-compose file. No changes to this file should be necessary, unless you want to modify the HTTP port, which is set to 8080, or modify the location of permanent volumes.
 
 ## Persistent volumes
 In order to mantain corpora data and registry, CQPweb files and SQL database through further code upgrades, the following persistent volumes are provided:
