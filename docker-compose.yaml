@@ -14,7 +14,7 @@ services:
        - ${REGISTRY}:/usr/local/share/cwb/registry
        - ./${FIRSTNAME}-container/cqpweb/upload:/var/cqpweb/upload
        - ./${FIRSTNAME}-container/cqpweb/data:/var/www/html
-       - ./${FIRSTNAME}-container/cqpwb/tmp:/var/cqpweb/tmp
+       - ./${FIRSTNAME}-container/cqpweb/tmp:/var/cqpweb/tmp
   sql:
     image: mariadb
     env_file: ./secrets.env
