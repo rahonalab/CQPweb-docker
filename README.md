@@ -31,7 +31,7 @@ Next time(s) you will just have to run `docker-compose up -d`
 Before starting, you have to modify two files: .env and secrets.env
 
 ### .env
-This file is read by docker-compose: you first need to set up your domain (${DOMAINNAME}) and host name (${FIRSTNAME}). The latter is particurarly important, since persistent volumes on the host filesystem are created using this name (see persistent volumes). The ${CORPORA} variable defaults to `/var/corpora`, while the ${REGISTRY} variable to `/usr/local/share/cwb/registry`. Please make sure that these directories exist!
+This file is read by docker-compose: you first need to set up your domain (${DOMAINNAME}) and host name (${FIRSTNAME}). The latter is particularly important, since persistent volumes on the host filesystem are created using this name (see persistent volumes). The ${CORPORA} variable defaults to `/var/corpora`, while the ${REGISTRY} variable to `/usr/local/share/cwb/registry`. Please make sure that these directories exist!
 
 ### secrets.env
 This file is read by containers. You can safely ignore the Apache environment variables; just modify MySQL variables and LOCALTIME.
@@ -52,7 +52,7 @@ In order to mantain corpora data and registry, CQPweb files and SQL database thr
 | ./${FIRSTNAME}-container/sql/data | sql:/var/lib/mysql| MariaDB data |
 
 ## Command line
-Of course, sometimes you will need the command line, maybe for playing with CWB in text mode or to run some PHP scripts to optimise your CQPweb installation. To fire up a bash shell inside CQPweb, run from the Docker directory:
+Of course, sometimes you will need the command line, maybe for preparing your corpora with CWB tools, playing with CQP in text mode or to run some PHP scripts to optimise your CQPweb installation. To fire up a bash shell inside CQPweb, run from the Docker directory:
 
 `docker-compose exec cqpweb bash`
 
