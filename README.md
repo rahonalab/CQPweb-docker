@@ -48,6 +48,9 @@ In order to mantain corpora data and registry, CQPweb files and SQL database thr
 | ./${FIRSTNAME}-container/cqpweb/tmp | cqpweb:/var/cqpweb/tmp| CQPweb temporary directory |
 | ./${FIRSTNAME}-container/sql/data | sql:/var/lib/mysql| MariaDB data |
 
+## Command line
+Of course, sometimes you will need the command line, maybe for playing with CWB in text mode or to run some PHP scripts to optimise your CQPweb installation. To fire up a bash shell inside CQPweb, run from the Docker directory:
 
+`docker-compose exec cqpweb bash`
 
 
