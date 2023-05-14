@@ -30,8 +30,8 @@ ADD http://svn.code.sf.net/p/cwb/code/cwb/trunk cwb.revision
 #Cwb
 RUN svn co -r ${CWB_REVISION} http://svn.code.sf.net/p/cwb/code/cwb/trunk/ cwb
 RUN grep -E '^VERSION = ' cwb/definitions.mk | cut -c11- > cwb.version
-
-
+#RUN wget https://sourceforge.net/projects/cwb/files/cwb/cwb-3.5/source/cwb-3.5.0-src.tar.gz
+#RUN tar -zxvf cwb-3.5.0-src.tar.gz
 ###
 #Compile cwb
 # Installation steps from
@@ -41,15 +41,9 @@ RUN apt-get update \
         autoconf bison flex gcc make pkg-config libc6-dev libncurses5 libncurses5-dev libpcre3-dev libglib2.0-0 libglib2.0-dev libreadline-dev perl perl-modules libhtml-parser-perl
 
 WORKDIR /usr/local/src/cwb
-ENV PLATFORM=linux-64
-ENV SITE=binary-release
-RUN make clean \
-    && make depend \
-    && make cl \
-    && make utils \
-    && make cqp \
-    && make install \
-    && make realclean
+#ENV PLATFORM=linux-64
+#ENV SITE=standard
+RUN make clean && make depend && make all && make install
 
 
 # Install generic dependencies for web app
