@@ -15,6 +15,7 @@ services:
        - ./${FIRSTNAME}-container/cqpweb/upload:/var/cqpweb/upload
        - ./${FIRSTNAME}-container/cqpweb/data:/var/www/html
        - ./${FIRSTNAME}-container/cqpweb/tmp:/var/cqpweb/tmp
+   platform: linux/amd64
   sql:
     image: mariadb
     env_file: ./secrets.env
